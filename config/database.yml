@@ -80,6 +80,4 @@ test:
 #
 production:
   <<: *default
-  database: lwmd_production
-  username: lwmd
-  password: <%= ENV['LWMD_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
