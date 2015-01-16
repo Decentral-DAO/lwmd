@@ -75,24 +75,6 @@ class MemberIntegrationTest < IntegrationTest
         page.wont_have_css('i')
       end
     end
-
-    it "invites a member" do
-      @member = create(:member)
-      visit members_path
-      within("tr##{@member.id}") do
-        click_link('Invite')
-      end
-      page.must_have_content("Successfully invited #{@member.name}")
-      ActionMailer::Base.deliveries.last['to'].to_s.must_equal @member.email
-    end
-
-    it "cant invite a member that is not an adult" do
-      @child = create(:member, birthdate: Date.today - 7.years)
-      visit members_path
-      within("tr##{@child.id}") do
-        wont_have_content 'Invite'
-      end
-    end
   end
 
   describe "a member" do

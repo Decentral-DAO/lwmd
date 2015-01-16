@@ -98,4 +98,34 @@ class MembershipIntegrationTest < IntegrationTest
     page.must_have_content("Date paid can't be blank")
     page.must_have_content("Members You need at least one member")
   end
+
+  it "invites a member" do
+    @member = create(:member)
+    current_membership = build(:individual_membership, year: Date.today.year)
+    current_mm = build(:member_membership, member: @member, primary: true)
+    current_membership.member_memberships << current_mm
+    current_membership.save
+    visit memberships_path
+    within("tr##{current_membership.id}") do
+      click_link('Invite')
+    end
+    page.must_have_content("Successfully invited #{@member.name}")
+    ActionMailer::Base.deliveries.last['to'].to_s.must_equal @member.email
+  end
+
+  it "cant invite a member that is not an adult" do
+    @child = create(:member, birthdate: Date.today - 7.years)
+    @adult = create(:member)
+    current_membership = build(:family_membership, year: Date.today.year)
+    adult_mm = build(:member_membership, member: @adult, primary: true)
+    child_mm = build(:member_membership, member: @child)
+    current_membership.member_memberships << adult_mm
+    current_membership.member_memberships << child_mm
+    current_membership.save
+    visit memberships_path
+    within("tr##{current_membership.id}") do
+      assert_selector('.item', :count => 2).must_equal true
+      assert_text('Invite', :maximum => 1).must_equal true
+    end
+  end
 end
