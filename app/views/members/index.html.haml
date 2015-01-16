@@ -42,5 +42,3 @@
           - if member.home_phone.present?
             = member.home_phone.phony_formatted(normalize: :US, spaces: '-')
         %td
-          - if member.invitation_accepted_at.blank? && member.adult?
-            = link_to "Invite", invite_member_path(member), method: :post

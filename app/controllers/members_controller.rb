@@ -57,7 +57,7 @@ class MembersController < ApplicationController
     @member = Member.find(params[:id])
     @member.invite!(current_member)
     flash[:notice] = "Successfully invited #{@member.name}"
-    redirect_to members_path
+    redirect_to memberships_path #since it's called from memberships
   end
 
   private

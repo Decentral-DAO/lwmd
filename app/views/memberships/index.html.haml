@@ -46,4 +46,6 @@
                 .item
                   %i.small.user.icon
                   = mm.member.name
+              - if mm.member.invitation_accepted_at.blank? && mm.member.adult?
+                = link_to "Invite", invite_member_path(mm.member), method: :post
         %td
