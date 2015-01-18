@@ -95,6 +95,20 @@ class MemberIntegrationTest < IntegrationTest
       visit member_root_path
       page.wont_have_content("Update your profile photo")
     end
+
+    it "accesses the membership card" do
+      @member = create(:member)
+      sign_in(@member)
+      page.must_have_content("Access your PTC Membership card")
+      click_link "Access your PTC Membership card"
+      page.must_have_content("EXPIRED")
+      current_membership = build(:individual_membership, year: Date.today.year)
+      current_mm = build(:member_membership, member: @member, primary: true)
+      current_membership.member_memberships << current_mm
+      current_membership.save
+      visit card_member_path(@member)
+      page.must_have_content("ACTIVE")
+    end
   end
 
   describe "an invited member" do
