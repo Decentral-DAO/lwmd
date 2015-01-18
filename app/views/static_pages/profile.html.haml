@@ -1,30 +1,17 @@
 .ui.stackable.relaxed.grid
   .eight.wide.column
-    .ui.fluid.segment
-      %h2.ui.header PTC Virtual Membership Card
-      .ui.two.column.grid
-        .column
-          = image_tag(current_member.avatar.url(:medium), class: "ui medium rounded image")
-        .column
-          %h3.ui.header
-            = @member.name
-          %p
-            ID:
-            %b=@member.member_number
-          %p
-            %span Status:
-            - if @member.paid_up?
-              %span.ui.green.header
-                ACTIVE
-              %br
-              %span Expires:
-              = @member.current_membership.expires_on.strftime("%b %d, %Y")
-              %br
-              %span Member since:
-              = @member.since
-            - else
-              %span.ui.red.header
-                EXPIRED
+    %h2.ui.top.attached.header PTC Membership Database
+    .ui.attached.segment
+      The PTC Membership Database is the central location for all
+      members-only resources.
+
+    %h2.ui.top.attached.header Membership Card
+    .ui.attached.segment
+      %h4.ui.header
+        = link_to "Access your PTC Membership card", card_member_path(current_member)
+      You can bookmark your membership card on your smartphone or print
+      a copy to carry with you. Show your card at local sponsor shops to
+      verify your membership.
 
   .right.floated.six.wide.column
     %h2.ui.header Info
@@ -35,8 +22,12 @@
           .header
             = link_to "PTC Sponsor Discounts", "http://www.pittsburghtriathlonclub.com/club-discount-codes/", target: :blank
           .description
-            Password is
-            %em kienle2014kona
+            - if @member.paid_up?
+              Password is
+              %em kienle2014kona
+            - else
+              = link_to "Renew your membership", "http://www.active.com/event_detail.cfm?event_id=2136786", :target => "_blank"
+              to get access to the current password
       - if current_member.has_default_avatar?
         .item
           %i.big.yellow.warning.sign.icon
