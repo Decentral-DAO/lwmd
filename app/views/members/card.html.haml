@@ -1,0 +1,60 @@
+- title "PTC Membership Card"
+.ui.one.column.centered.grid
+  .mobile.only.row
+    .column
+      .ui.fluid.card
+        .image
+          = image_tag(@member.avatar.url(:medium))
+        .content
+          .header
+            %h3
+              = @member.name
+          .meta
+            = @member.member_number
+          .description
+            .ui.two.column.grid
+              .column
+                = image_tag("PTCLogo-dark.png", alt: "PTC Logo", size: "94x60", id: "membership-card-logo")
+              .right.floated.column
+                %span Status:
+                - if @member.paid_up?
+                  %span.ui.green.header
+                    ACTIVE
+                  %br
+                  %span Expires:
+                  %br
+                  %b= @member.current_membership.expires_on.strftime("%b %d, %Y")
+                  %br
+                  %span Member since:
+                  %b= @member.since
+                - else
+                  %span.ui.red.header
+                    EXPIRED
+.ui.one.column.grid
+  .tablet.computer.only.row
+    .column
+      .ui.fluid.segment
+        %h2.ui.header PTC Virtual Membership Card
+        .ui.two.column.grid
+          .column
+            = image_tag(@member.avatar.url(:medium), class: "ui medium rounded image")
+          .column
+            %h3.ui.header
+              = @member.name
+            %p
+              ID:
+              %b=@member.member_number
+            %p
+              %span Status:
+              - if @member.paid_up?
+                %span.ui.green.header
+                  ACTIVE
+                %br
+                %span Expires:
+                = @member.current_membership.expires_on.strftime("%b %d, %Y")
+                %br
+                %span Member since:
+                = @member.since
+              - else
+                %span.ui.red.header
+                  EXPIRED

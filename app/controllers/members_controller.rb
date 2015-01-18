@@ -1,7 +1,7 @@
 class MembersController < ApplicationController
-  before_action :authenticate_member!
+  before_action :authenticate_member!, except: :card
   before_action :check_for_admin!,
-    except: [:show, :edit, :update]
+    except: [:show, :edit, :update, :card]
   before_action ->(member=params[:id]) { check_for_admin_or_current_member! member },
     only: %w{show edit update}
 
@@ -51,6 +51,11 @@ class MembersController < ApplicationController
     else
       render "edit"
     end
+  end
+
+  def card
+    @member = Member.find(params[:id])
+    render layout: "card"
   end
 
   def invite
