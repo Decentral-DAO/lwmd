@@ -3,6 +3,10 @@
   %meta{:charset => "utf-8"}/
   %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}/
   %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+  / iOS-specifics
+  %meta{:name => "apple-mobile-web-app-capable", :content => "yes"}/
+  / Works in Android's Chrome browser
+  %meta{:name => "mobile-web-app-capable", :content => "yes"}/
   / Site Properities
   %title
     = content_for?(:title) ? yield(:title) : "Pittsburgh Triathlon Club Membership Directory"
