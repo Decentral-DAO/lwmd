@@ -5,8 +5,14 @@
   %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
   / iOS-specifics
   %meta{:name => "apple-mobile-web-app-capable", :content => "yes"}/
+  %link{:href => "touch-icon-iphone.png", :rel => "apple-touch-icon"}/
+  %link{:href => "touch-icon-ipad.png", :rel => "apple-touch-icon", :sizes => "76x76"}/
+  %link{:href => "touch-icon-iphone-retina.png", :rel => "apple-touch-icon", :sizes => "120x120"}/
+  %link{:href => "touch-icon-ipad-retina.png", :rel => "apple-touch-icon", :sizes => "152x152"}/
   / Works in Android's Chrome browser
   %meta{:name => "mobile-web-app-capable", :content => "yes"}/
+  %link{:href => "android-touch-icon-hires.png", :rel => "shortcut icon", :sizes => "196x196"}/
+  %link{:href => "android-touch-icon.png", :rel => "shortcut icon", :sizes => "128x128"}/
   / Site Properities
   %title
     = content_for?(:title) ? yield(:title) : "Pittsburgh Triathlon Club Membership Directory"
